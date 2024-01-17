@@ -12,15 +12,19 @@ parser.add_argument('-i', '--id', type=str,
                     help='entity id to control')
 parser.add_argument('-t', '--type', type=str,
                     help='type of entity')
+parser.add_argument('-g', '--get', action='store_true',
+                    help='get state of entity')
 args = parser.parse_args()
-if (not args.type) or (not args.id) or (not args.state):
+if (not args.id):
     parser.print_help()
     exit(0)
 
 match args.type:
     case "light":
-        if (not ((args.state == "on") or (args.state == "off"))):
-            parser.print_help()
-            print("state must be 'on' or 'off' for type 'light'")
-            exit(0)
-        light.light(args.id, args.state)
+        light.checkargs(parser)
+        if args.state_json:
+            light.lightjson(args.id, args.state_json)
+        elif args.get:
+            light.get(args.id)
+        else:
+            light.light(args.id, args.state)
