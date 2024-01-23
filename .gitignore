@@ -2,4 +2,5 @@
 common.py
 __pycache__/
 *.bin
+hass-daemon
 config.json

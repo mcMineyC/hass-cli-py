@@ -1,2 +1,2 @@
 import common
-common.findWifi()
+print(common.atHome(common.config_file))
