@@ -21,7 +21,7 @@ server.bind(socket_path)
 # Listen for incoming connections
 server.listen(2)
 uri = config_data["url"].replace("https://", "wss://").replace("http://", "ws://")
-print("Connecting to websocket")
+print("Connecting to websocket at "+uri)
 with connect(uri+"/api/websocket") as ws:
     print("Authenticating...")
     log(ws.recv())
