@@ -1,5 +1,6 @@
 import argparse
 import light
+import listen
 parser = argparse.ArgumentParser(
                     prog='hass-cli',
                     description='A CLI for Home Assistant',
@@ -22,6 +23,13 @@ lpas.add_argument('brightness', default=None, nargs="?")
 
 
 
+
+listenp = sp.add_parser("listen")
+listenp.add_argument("id", type=str)
+
+
+
+
 args = parser.parse_args()
 if (not args.id):
     parser.print_help()
@@ -41,3 +49,5 @@ match args.type:
                         light.light(args.id, args.state)
             case "get":
                 light.get(args.id)
+    case "listen":
+        listen.changed(args.id)
