@@ -3,4 +3,5 @@ common.py
 __pycache__/
 *.bin
 hass-daemon
+hass-cli
 config.json
