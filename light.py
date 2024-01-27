@@ -13,6 +13,10 @@ def raw(name, state):
 
 def get(name):
 	o = api.state(name)
+	s = parseState(o)
+	print(json.dumps(s))
+
+def parseState(o):
 	if (o["attributes"]["supported_color_modes"][0] == "brightness" and len(o["attributes"]["supported_color_modes"]) == 1):
 		if (o["attributes"]["brightness"] == None):
 			bri = 0
@@ -23,7 +27,7 @@ def get(name):
 			"state": o["state"],
 			"brightness": round(bri)
 		}
-		print(out)
+		return out
 	elif ("hs" in o["attributes"]["supported_color_modes"]):
 		if ("color_temp" in o["attributes"]["supported_color_modes"]):
 			if (o["attributes"]["brightness"] == None):
@@ -39,7 +43,7 @@ def get(name):
 					"brightness": bri,
 					"temp": o["attributes"]["color_temp"]
 				}
-				print(out)
+				return out
 			elif o["attributes"]["color_mode"] == "hs":
 				out = {
 					"type": "colork",
@@ -48,14 +52,14 @@ def get(name):
 					"brightness": bri,
 					"rgb": o["attributes"]["rgb_color"]
 				}
-				print(out)
+				return out
 			else:
 				out = {
 					"type": "colork",
 					"state": "off",
 					"brightness": 0,
 				}
-				print(out)
+				return out
 		else:
 			out = {
 				"type": "color",
@@ -64,9 +68,11 @@ def get(name):
 				"brightness": bri,
 				"rgb": o["attributes"]["rgb_color"]
 			}
-			print(out)
+			return out
 	else:
-		print(o)
+		return o
+
+
 def checkargs(parser):
 	args = parser.parse_args()
 	if args.get:

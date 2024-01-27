@@ -25,7 +25,6 @@ lpas.add_argument('brightness', default=None, nargs="?")
 
 
 listenp = sp.add_parser("listen")
-listenp.add_argument("id", type=str)
 
 
 
